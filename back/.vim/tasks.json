@@ -1,0 +1,20 @@
+{
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "Start Server",
+      "command": "python app.py"
+    },
+    {
+      "type": "shell",
+      "label": "Start Shell",
+      "command": "poetry shell"
+    },
+    {
+      "type": "shell",
+      "label": "request test",
+      "command": "curl 'http://localhost:5000/request_booking' -X POST -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0' -H 'Accept: */*' -H 'Accept-Language: en-US,en;q=0.5' -H 'Accept-Encoding: gzip, deflate, br' -H 'Referer: http://localhost:3000/' -H 'Content-Type: application/json' -H 'Origin: http://localhost:3000' -H 'DNT: 1' -H 'Sec-GPC: 1' -H 'Connection: keep-alive' -H 'Sec-Fetch-Dest: empty' -H 'Sec-Fetch-Mode: cors' -H 'Sec-Fetch-Site: same-site' --data-raw '{\"latLong\":[45.5288379,-73.572371],\"radius\":0.5,\"ethicalMode\":false,\"FlexKey\":\"\",\"PushKey\":\"\",\"communautoID\":\"\",\"CommunautoEmail\":\"\",\"CommunautoPassword\":\"\",\"City\":\"montreal\",\"DefaultDistance\":0.5,\"DefaultEthicalMode\":true}'"
+
+    }
+  ]
+}
