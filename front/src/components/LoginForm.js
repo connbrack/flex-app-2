@@ -51,7 +51,7 @@ function MainForm() {
   return (
     <div>
       <Form data-bs-theme="dark">
-        <Form.Group className="mb-3" controlId="CommunautoPassword">
+        <Form.Group className="mb-3" controlId="selectCity">
           <Form.Label>Select city</Form.Label>
           <Form.Select
             name="City"

@@ -8,10 +8,11 @@ import NoPage from './pages/NoPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
 
+
 export default function App() {
+
   return (
-    <html>
-      <body className='main'>
+      <div className='main'>
         <BrowserRouter>
           <Header />
           <div className='main-container'>
@@ -22,7 +23,6 @@ export default function App() {
             </Routes>
           </div>
         </BrowserRouter>
-      </body>
-    </html >
+      </div>
   );
 }
