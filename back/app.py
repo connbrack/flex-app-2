@@ -51,8 +51,7 @@ def main_function():
 @app.route('/api/send-test-message', methods=['POST'])
 def save_subscription():
     data = request.get_json()
-    send_notification(data, 'Hello World')
-    return {'status': 'success', 'pubkey': data}
+    return send_notification(data, 'Hello World')
 
 if __name__ == '__main__':
     app.run(debug=True)
