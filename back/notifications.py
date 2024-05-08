@@ -9,7 +9,7 @@ VAPID_PRIVATE_KEY = os.getenv('VAPID_PRIVATE_KEY')
 VAPID_CLAIMS = { "sub": "mailto:your-email@example.com" }
 
 
-def send_notification(subscription_info, message):
+def send_notification(message, subscription_info):
     try:
         webpush(
             subscription_info=subscription_info,
