@@ -1,14 +1,12 @@
+import LoginForm from "../components/LoginForm";
+import EnablePush from "../components/EnablePush";
 
-import LoginForm from '../components/LoginForm';
-
-import '../css/styles.css';
+import "../css/styles.css";
 
 export default function Settings() {
-
   function clearStorage() {
     localStorage.clear();
-  };
-
+  }
 
   return (
     <div>
@@ -17,11 +15,22 @@ export default function Settings() {
       <br />
       <LoginForm />
       <br />
-
-      <p> This data is saved to your browser, and is not logged anywhere else. It is accessed only when car booking attempts are requested. </p>
+      <EnablePush />
+      <br />
+      <p>
+        This data is saved to your browser, and is not logged anywhere else. Do
+        not use if you do not trust the device your are using. Your information
+        is is accessed by the flex2 api only when car booking attempts are
+        requested.
+      </p>
       <br />
 
-      <span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={clearStorage}> Clear storage </span>
+      <span
+        style={{ textDecoration: "underline", cursor: "pointer" }}
+        onClick={clearStorage}
+      >
+        Clear storage
+      </span>
     </div>
   );
 }

@@ -3,12 +3,7 @@
     {
       "type": "shell",
       "label": "Start Server",
-      "command": "python app.py"
-    },
-    {
-      "type": "shell",
-      "label": "Start Shell",
-      "command": "poetry shell"
+      "command": "source venv/flex2/bin/activate && python app.py"
     },
     {
       "type": "shell",

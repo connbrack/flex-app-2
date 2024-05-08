@@ -2,6 +2,7 @@ import os
 import random
 from flask import Flask, request
 from multiprocessing import Process
+from notifications import send_notification
 import subprocess
 
 from booking_funcs import notify_close_cars
@@ -44,7 +45,15 @@ def main_function():
     p = Process(target=notify_close_cars, args=(loc, max_dis, push_key,autobook,login_cred, ethical,), name=f'{push_key}{random.randint(10000, 99999)}')
     p.start()
 
+    send_notification(temp_database[0], 'we started looking :)')
+
     return {'status': 'success'}
+
+@app.route('/api/send-test-message', methods=['POST'])
+def save_subscription():
+    data = request.get_json()
+    send_notification(data, 'Hello World')
+    return {'status': 'success', 'pubkey': data}
 
 if __name__ == '__main__':
     app.run(debug=True)
