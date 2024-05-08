@@ -3,7 +3,6 @@ import random
 from flask import Flask, request
 from multiprocessing import Process
 from notifications import send_notification
-import subprocess
 
 from booking_funcs import notify_close_cars
 
