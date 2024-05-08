@@ -15,7 +15,10 @@ const EnablePush = () => {
     navigator.serviceWorker.ready.then((registration) => {
       registration.pushManager.getSubscription().then((subscription) => {
         if (subscription) {
+          console.log("Subscription found");
+          console.log(subscription);
           sendSubscriptionToServer(subscription);
+
         } else {
           console.log("No subscription");
         }
