@@ -20,7 +20,7 @@ function EnablePush() {
           checkAndResubscribe();
         } else {
           alert(
-            "Push notification are required to use this app. Please enable them. After enabling, use the button again to subscribe."
+            "Push notification are required to use this app. Please enable them. After enabling, use this button again to subscribe. \n\nIf you are on mobile, install the progressive web app and try again"
           );
         }
       });

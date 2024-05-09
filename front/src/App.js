@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
+import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import Settings from "./pages/Settings";
 import NoPage from "./pages/NoPage";
@@ -24,7 +24,7 @@ export default function App() {
     <ChakraProvider theme={theme}>
       <div className="main">
         <BrowserRouter>
-          <Header />
+          <NavBar />
           <div className="main-container">
             <Routes>
               <Route path="/" element={<Home />} />
