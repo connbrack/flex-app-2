@@ -18,7 +18,7 @@ export default function Settings() {
       <p>
         All data is saved to your browser, and is not logged anywhere else. Do
         not use if you do not trust the device your are using. Your information
-        is is accessed by the flex2 api only when car booking attempts are
+        is accessed by the flex2 api only when car booking attempts are
         requested.
       </p>
       <br />
