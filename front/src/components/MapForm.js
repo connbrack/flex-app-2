@@ -18,13 +18,9 @@ import "leaflet/dist/leaflet.css";
 const MapForm = () => {
   const [latLong, setLatLong] = useState([45.508, -73.561]);
   const [geoFound, setGeoFound] = useState();
-  const [pickerValue, setPickerValue] = useState({ radius: 0.5 });
-  const [ethicalMode, setEthicalMode] = useState(false);
-  const [showModal, setShowModal] = useState(false);
   const [showModalError, setShowModalError] = useState(false);
+  const [pickerValue, setPickerValue] = useState({radius: 0.5});
   const [settings, setSettings] = useState({
-    FlexKey: "",
-    PushKey: "",
     CommunautoEmail: "",
     CommunautoPassword: "",
     City: "montreal",
@@ -44,7 +40,6 @@ const MapForm = () => {
     } else {
       setSettings(settings);
     }
-    setEthicalMode(settings.DefaultEthicalMode);
   }
 
   const getUserLocation = () => {
@@ -97,7 +92,6 @@ const MapForm = () => {
               if (!response.ok) {
                 setShowModalError(true);
               }
-              setShowModal(true);
             })
             .catch(() => {
               setShowModalError(true);
@@ -169,12 +163,9 @@ const MapForm = () => {
             type="checkbox"
             id="ethicalMode"
             name="switch"
-            checked={ethicalMode}
-            onClick={() => setEthicalMode(setEthicalMode(!ethicalMode))}
-            onChange={() => setEthicalMode(setEthicalMode(!ethicalMode))}
             value="private"
           />
-          <label htmlFor="switch">
+          <label htmlFor="ethicalMode">
             <span className="switch-x-text">Ethical mode is </span>
             <span className="switch-x-toggletext">
               <span className="switch-x-unchecked">
@@ -200,38 +191,15 @@ const MapForm = () => {
 
         <Modal
           data-bs-theme="dark"
-          show={showModal}
-          onHide={() => setShowModal(false)}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Search Started !!</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div className="main-container">
-              <figure className="figure">
-                <img alt="" src="favicon.ico" />
-              </figure>
-              Woohoo, we're finding a car for you !!
-            </div>
-          </Modal.Body>
-          <Modal.Footer>
-            <button className="button" onClick={() => setShowModal(false)}>
-              Close
-            </button>
-          </Modal.Footer>
-        </Modal>
-
-        <Modal
-          data-bs-theme="dark"
           show={showModalError}
-          onHide={() => setShowModal(false)}
+          onHide={() => setShowModalError(false)}
         >
           <Modal.Header closeButton>
             <Modal.Title>Fuck !!</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="main-container">
-              Something went wrong, plz tell me what happened !
+              Something went wrong on our side !
             </div>
           </Modal.Body>
           <Modal.Footer>

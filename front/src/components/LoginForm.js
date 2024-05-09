@@ -5,8 +5,6 @@ import EnablePush from "../components/EnablePush";
 
 function MainForm() {
   const [settings, setSettings] = useState({
-    FlexKey: "",
-    PushKey: "",
     CommunautoEmail: "",
     CommunautoPassword: "",
     City: "montreal",
@@ -29,7 +27,6 @@ function MainForm() {
         [name]: value,
       }));
     }
-    console.log(settings.DefaultEthicalMode);
   }
 
   function getBrowserData() {
@@ -52,45 +49,8 @@ function MainForm() {
   return (
     <div>
       <Form data-bs-theme="dark">
-        <Form.Group className="mb-3" controlId="selectCity">
-          <Form.Label>Select city</Form.Label>
-          <Form.Select
-            name="City"
-            value={settings.City}
-            onChange={(e) => handleFormChange(e)}
-          >
-            <option>Select a city</option>
-            <option value="montreal">Montreal</option>
-            <option value="toronto">Toronto</option>
-          </Form.Select>
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="DefaultDistance">
-          <Form.Label>Default Distance</Form.Label>
-          <Form.Control
-            type="number"
-            min={0.1}
-            max={5}
-            step={0.1}
-            name="DefaultDistance"
-            placeholder="Distance"
-            value={settings.DefaultDistance}
-            onChange={(e) => handleFormChange(e)}
-          />
-        </Form.Group>
-
-        <EnablePush />
         <br />
 
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check
-            type="checkbox"
-            name="DefaultEthicalMode"
-            checked={settings.DefaultEthicalMode}
-            label="Ethical mode enabled by default"
-            onChange={(e) => handleFormChange(e)}
-          />
-        </Form.Group>
         <br />
 
         <h3>Login info</h3>
@@ -117,7 +77,6 @@ function MainForm() {
           />
         </Form.Group>
 
-        <br />
         <button
           className="button"
           onClick={(e) => {
@@ -128,6 +87,55 @@ function MainForm() {
         >
           Save
         </button>
+        <br />
+        <br />
+
+        <h3>Notifications</h3> 
+        <EnablePush />
+        <br />
+        <br />
+
+        <h3>Default settings</h3>
+        <h6>(coming soon)</h6>
+        <Form.Group className="mb-3" controlId="selectCity">
+          <Form.Label>Select city</Form.Label>
+          <Form.Select
+            name="City"
+            value={settings.City}
+            onChange={(e) => handleFormChange(e)}
+            disabled={true}
+          >
+            <option>Select a city</option>
+            <option value="montreal">Montreal</option>
+            <option value="toronto">Toronto</option>
+          </Form.Select>
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="DefaultDistance">
+          <Form.Label>Default Distance</Form.Label>
+          <Form.Control
+            type="number"
+            min={0.1}
+            max={5}
+            step={0.1}
+            name="DefaultDistance"
+            placeholder="Distance"
+            value={settings.DefaultDistance}
+            onChange={(e) => handleFormChange(e)}
+            disabled={true}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <Form.Check
+            type="checkbox"
+            name="DefaultEthicalMode"
+            checked={settings.DefaultEthicalMode}
+            label="Ethical mode enabled by default"
+            onChange={(e) => handleFormChange(e)}
+            disabled={true}
+          />
+        </Form.Group>
       </Form>
       <br />
       <Modal

@@ -5,6 +5,8 @@ import "../css/styles.css";
 export default function Settings() {
   function clearStorage() {
     localStorage.clear();
+    window.location.reload();
+
   }
 
   return (
@@ -14,7 +16,7 @@ export default function Settings() {
       <LoginForm />
       <br />
       <p>
-        This data is saved to your browser, and is not logged anywhere else. Do
+        All data is saved to your browser, and is not logged anywhere else. Do
         not use if you do not trust the device your are using. Your information
         is is accessed by the flex2 api only when car booking attempts are
         requested.

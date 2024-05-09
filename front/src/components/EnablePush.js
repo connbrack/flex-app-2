@@ -86,6 +86,7 @@ const EnablePush = () => {
             enablePush();
           }}
         >
+          <div>Click here to</div>
           Enable Push Notifications
         </button>
       </div>
