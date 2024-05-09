@@ -56,3 +56,17 @@ button:disabled,
 button[disabled]{
   background-color: #cccccc;
 }
+
+
+.button-alt {
+  display: block;
+  color: white;
+  width: 100%;
+  border: none;
+  background-color: #F15B2C;
+  margin-top: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 5px;
+}

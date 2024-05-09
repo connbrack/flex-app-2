@@ -8,16 +8,16 @@ from notifications import send_notification
 from playwright.sync_api import sync_playwright
 import json
 
-def notify_close_cars(loc, max_dis, api_key, book_car_enable, communauto_cred, ethical_mode, sleep_time=5, max_time=1800):
+def notify_close_cars(loc, max_dis, push_subscription, book_car_enable, communauto_cred, ethical_mode, sleep_time=5, max_time=1800):
     try:
         book_car_enable = True if book_car_enable is not None else False
 
         max_dis = float(max_dis)
 
         if book_car_enable:
-            send_notification('Car search has started', 'The flex-app has begun searching for your car, you will be notified when a car is booked', api_key)
+            send_notification('Car search has started - The flex-app has begun searching for your car, you will be notified when a car is booked', push_subscription)
         else:
-            send_notification('Car search has started', 'The flex-app has begun searching for your car, you will be notified when a car is close', api_key)
+            send_notification('Car search has started - The flex-app has begun searching for your car, you will be notified when a car is close', push_subscription)
 
         # Log in
         if book_car_enable:
@@ -51,14 +51,14 @@ def notify_close_cars(loc, max_dis, api_key, book_car_enable, communauto_cred, e
                     if num_cars > 0:
                         if book_car_enable:
                             message = f'''A car was booked sucessfully'''
-                            send_notification('Car booked', message, api_key)
+                            send_notification(f'Car booked  - {message}', push_subscription)
                         else:
                             if num_cars==1:
                                 message = f'There is 1 car that is {max_dis} km away'
-                                send_notification('Car Found', message, api_key)
+                                send_notification(f'Car found  - {message}', push_subscription)
                             elif num_cars>1:
                                 message = f'There are {num_cars} cars that are {max_dis} km away'
-                                send_notification('Car Found', message, api_key)
+                                send_notification(f'Car found  - {message}', push_subscription)
                         return
                 else:
                     if ethical_mode:
@@ -68,26 +68,26 @@ def notify_close_cars(loc, max_dis, api_key, book_car_enable, communauto_cred, e
                             booking_result, booking_message = book_car(int(car), customer_ID, session_ID)
                             if booking_result:
                                 message = f'''A car was booked sucessfully'''
-                                send_notification('Car booked', message, api_key)
+                                send_notification(f'Car booked - {message}', push_subscription)
                                 return
                             elif booking_message == 'The booking limit on this vehicle has been reached.':
                                 message = f'A booking was attempted but failed for the reason below. The search has is continuing.\n\n{booking_message}'
-                                send_notification('Unsucessful booking', message, api_key) 
+                                send_notification(f'Unsucessful booking - {message}', push_subscription) 
                                 ignore_list.append(car)
                                 time.sleep(.25)
                             elif booking_message == 'The vehicle is unavailable.':
                                 message = f'A booking was attempted but failed for the reason below. The search is continuing.\n\n{booking_message}'
-                                send_notification('Unsucessful booking', message, api_key) 
+                                send_notification(f'Unsucessful booking - {message}', push_subscription) 
                             else:
                                 message = f'A booking was attempted but failed for the reason below. The search has stopped.\n\n{booking_message}'
-                                send_notification('search stopped', message, api_key) 
+                                send_notification(f'search stopped - {message}', push_subscription) 
                                 return
 
-        send_notification('Car not found', 'Max time has been reached and no car was found', api_key)
+        send_notification('Car not found - Max time has been reached and no car was found', push_subscription)
 
     except Exception as e:
         message = f'The search has stopped. Please try again.\n\nThe script crashed for reason:\n\t{e}'
-        send_notification('Script crashed', message, api_key)
+        send_notification(f'Script crashed - {message}', push_subscription)
 
 
 def get_valid_session(communauto_cred):

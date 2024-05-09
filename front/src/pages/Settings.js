@@ -1,5 +1,4 @@
 import LoginForm from "../components/LoginForm";
-import EnablePush from "../components/EnablePush";
 
 import "../css/styles.css";
 
@@ -12,10 +11,7 @@ export default function Settings() {
     <div>
       <h1>Settings !!</h1>
       <br />
-      <br />
       <LoginForm />
-      <br />
-      <EnablePush />
       <br />
       <p>
         This data is saved to your browser, and is not logged anywhere else. Do

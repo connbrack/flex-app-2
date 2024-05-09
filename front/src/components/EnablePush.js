@@ -19,7 +19,7 @@ const EnablePush = () => {
   const urlBase64ToUint8Array = (base64String) => {
     const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
     const base64 = (base64String + padding)
-      .replace(/\-/g, "+")
+      .replace(/-/g, "+")
       .replace(/_/g, "/");
 
     const rawData = atob(base64);
@@ -79,7 +79,13 @@ const EnablePush = () => {
   return (
     <div>
       <div>
-        <button className="button" onClick={enablePush}>
+        <button
+          className="button-alt"
+          onClick={(e) => {
+            e.preventDefault();
+            enablePush();
+          }}
+        >
           Enable Push Notifications
         </button>
       </div>

@@ -23,11 +23,11 @@ const MapForm = () => {
   const [showModal, setShowModal] = useState(false);
   const [showModalError, setShowModalError] = useState(false);
   const [settings, setSettings] = useState({
-    FlexKey: '',
-    PushKey: '',
-    CommunautoEmail: '',
-    CommunautoPassword: '',
-    City: 'montreal',
+    FlexKey: "",
+    PushKey: "",
+    CommunautoEmail: "",
+    CommunautoPassword: "",
+    City: "montreal",
     DefaultDistance: 0.5,
     DefaultEthicalMode: true,
   });
@@ -78,28 +78,38 @@ const MapForm = () => {
   }
 
   function handleSubmit() {
-    const payload = {
-      latLong: latLong,
-      radius: pickerValue["radius"],
-      ethicalMode: document.getElementById("ethicalMode").checked,
-      ...settings,
-    };
-
-    fetch(`/api/request_booking`, {
-      method: "POST",
-      mode: "cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          setShowModalError(true);
+    navigator.serviceWorker.ready.then((registration) => {
+      registration.pushManager.getSubscription().then((subscription) => {
+        if (subscription) {
+          const payload = {
+            latLong: latLong,
+            radius: pickerValue["radius"],
+            ethicalMode: document.getElementById("ethicalMode").checked,
+            pushSubscription: subscription,
+            ...settings,
+          };
+          fetch(`/api/request_booking`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                setShowModalError(true);
+              }
+              setShowModal(true);
+            })
+            .catch(() => {
+              setShowModalError(true);
+            });
+        } else {
+          alert(
+            "User is not subscribed to push notification, make sure you go to the settings and enable before using."
+          );
+          throw new Error("User is not subscribed to push notification");
         }
-        setShowModal(true);
-      })
-      .catch(() => {
-        setShowModalError(true);
       });
+    });
   }
 
   useEffect(() => {
@@ -180,7 +190,10 @@ const MapForm = () => {
         <button
           className="button"
           disabled={!geoFound}
-          onClick={() => handleSubmit()}
+          onClick={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
         >
           Send request
         </button>

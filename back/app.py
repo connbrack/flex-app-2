@@ -27,24 +27,18 @@ def main_function():
     # import keys from environment variables
 
     data = request.get_json()
-
-
-    keys = dict(item.split(':') for item in KEYS.split(','))
-    if data['FlexKey'] not in keys.values():
-        raise ValueError("Invalid key")
+    print(data)
 
     loc = data['latLong']
     login_cred = [data['CommunautoEmail'], data['CommunautoPassword']]
     max_dis = data['radius']
-    push_key = data['PushKey']
     ethical = data['ethicalMode']
+    push_key = data['pushSubscription']
 
     autobook = True
 
     p = Process(target=notify_close_cars, args=(loc, max_dis, push_key,autobook,login_cred, ethical,), name=f'{push_key}{random.randint(10000, 99999)}')
     p.start()
-
-    send_notification(temp_database[0], 'we started looking :)')
 
     return {'status': 'success'}
 

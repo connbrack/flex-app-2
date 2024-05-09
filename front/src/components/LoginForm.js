@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import EnablePush from "../components/EnablePush";
 
 function MainForm() {
   const [settings, setSettings] = useState({
@@ -78,6 +79,9 @@ function MainForm() {
           />
         </Form.Group>
 
+        <EnablePush />
+        <br />
+
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <Form.Check
             type="checkbox"
@@ -112,33 +116,8 @@ function MainForm() {
             onChange={(e) => handleFormChange(e)}
           />
         </Form.Group>
+
         <br />
-
-        <h3>Api keys</h3>
-
-        <Form.Group className="mb-3" controlId="FlexAppApiKey">
-          <Form.Label>FlexApp Api Key</Form.Label>
-          <Form.Control
-            type="text"
-            name="FlexKey"
-            placeholder="api key"
-            value={settings.FlexKey}
-            onChange={(e) => handleFormChange(e)}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="PushApiKey">
-          <Form.Label>Push API key</Form.Label>
-          <Form.Control
-            type="text"
-            name="PushKey"
-            placeholder="api key"
-            value={settings.PushKey}
-            onChange={(e) => handleFormChange(e)}
-          />
-        </Form.Group>
-        <br />
-
         <button
           className="button"
           onClick={(e) => {
@@ -150,7 +129,6 @@ function MainForm() {
           Save
         </button>
       </Form>
-      <br />
       <br />
       <Modal
         data-bs-theme="dark"
