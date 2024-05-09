@@ -10,12 +10,6 @@ from booking_funcs import notify_close_cars
 from dotenv import load_dotenv
 load_dotenv()
 
-# Check keys when program start
-KEYS = os.getenv('KEYS')
-if not KEYS:
-    print('Missing KEYS environment variable.')
-    os._exit(1)
-
 app = Flask(__name__, static_folder='../front/build', static_url_path='/')
 
 @app.errorhandler(404)
@@ -24,10 +18,7 @@ def not_found(e):
 
 @app.route('/api/request_booking', methods=['POST'])
 def main_function():
-    # import keys from environment variables
-
     data = request.get_json()
-    print(data)
 
     loc = data['latLong']
     login_cred = [data['CommunautoEmail'], data['CommunautoPassword']]
