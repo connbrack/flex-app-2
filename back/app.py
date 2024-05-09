@@ -48,10 +48,10 @@ def main_function():
 
     return {'status': 'success'}
 
-@app.route('/api/send-test-message', methods=['POST'])
+@app.route('/api/notification-confirmation', methods=['POST'])
 def save_subscription():
     data = request.get_json()
-    return send_notification('Hello World', data)
+    return send_notification('Success! You can now receive notifications', data)
 
 if __name__ == '__main__':
     app.run(debug=True)

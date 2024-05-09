@@ -97,6 +97,6 @@ self.addEventListener("activate", async (e) => {
 });
 
 self.addEventListener("push", (e) => {
-  self.registration.showNotification("Wohoo!!", { body: e.data.text() });
+  self.registration.showNotification("Flex 2 !!", { body: e.data.text() });
 });
 

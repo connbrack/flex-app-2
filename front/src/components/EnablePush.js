@@ -4,26 +4,16 @@ const EnablePush = () => {
       Notification.requestPermission().then((permission) => {
         if (permission === "granted") {
           console.log("Permission granted");
+          checkAndResubscribe();
         } else {
-          console.log("Permission denied");
+          alert(
+            "Push notification are required to use this app. Please enable them. After enabling, use the button again to subscribe."
+          );
         }
       });
+    } else {
+      checkAndResubscribe();
     }
-  }
-
-  function checkAndResubscribe() {
-    navigator.serviceWorker.ready.then((registration) => {
-      registration.pushManager.getSubscription().then((subscription) => {
-        if (subscription) {
-          console.log("Subscription found");
-          console.log(subscription);
-          sendSubscriptionToServer(subscription);
-        } else {
-          console.log("No subscription");
-          subscribeUser(registration);
-        }
-      });
-    });
   }
 
   const urlBase64ToUint8Array = (base64String) => {
@@ -41,6 +31,20 @@ const EnablePush = () => {
 
     return outputArray;
   };
+
+  function checkAndResubscribe() {
+    navigator.serviceWorker.ready.then((registration) => {
+      registration.pushManager.getSubscription().then((subscription) => {
+        if (subscription) {
+          console.log("User is already subscribed.");
+          sendSubscriptionToServer(subscription);
+        } else {
+          console.log("User is not subscribed.");
+          subscribeUser(registration);
+        }
+      });
+    });
+  }
 
   function subscribeUser(registration) {
     const applicationServerKey = urlBase64ToUint8Array(
@@ -61,7 +65,7 @@ const EnablePush = () => {
   }
 
   function sendSubscriptionToServer(subscription) {
-    fetch("/api/send-test-message", {
+    fetch("/api/notification-confirmation", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -72,19 +76,11 @@ const EnablePush = () => {
       .catch((error) => console.error("Error sending subscription:", error));
   }
 
-  function testPush() {
-    checkAndResubscribe();
-  }
-
   return (
     <div>
       <div>
         <button className="button" onClick={enablePush}>
           Enable Push Notifications
-        </button>
-
-        <button className="button" onClick={testPush}>
-          test push
         </button>
       </div>
     </div>
