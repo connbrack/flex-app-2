@@ -1,4 +1,17 @@
-const EnablePush = () => {
+import { useToast } from "@chakra-ui/react";
+
+function EnablePush() {
+  const toast = useToast();
+  function showToast(title, description, status) {
+    toast({
+      title: title,
+      description: description,
+      status: status,
+      duration: 2000,
+      isClosable: true,
+    });
+  }
+
   function enablePush() {
     if (Notification.permission === "default") {
       Notification.requestPermission().then((permission) => {
@@ -72,8 +85,22 @@ const EnablePush = () => {
       },
       body: JSON.stringify(subscription),
     })
-      .then((response) => response.json())
-      .catch((error) => console.error("Error sending subscription:", error));
+      .then((response) => {
+        response.json();
+        showToast(
+          "Subscribed",
+          "You should receive a test notification shortly.",
+          "success"
+        );
+      })
+      .catch((error) => {
+        console.error("Error sending subscription:", error);
+        showToast(
+          "Dammit !!",
+          "Something seems to have gone wrong in the back end",
+          "error"
+        );
+      });
   }
 
   return (
@@ -92,6 +119,6 @@ const EnablePush = () => {
       </div>
     </div>
   );
-};
+}
 
 export default EnablePush;

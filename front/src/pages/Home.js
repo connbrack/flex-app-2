@@ -7,6 +7,7 @@ export default function Home() {
   return (
     <div>
       <h1>Find a car !!</h1>
+      <br />
       <MapForm />
     </div>
   );

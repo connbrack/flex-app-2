@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Picker from "react-mobile-picker";
-import Modal from "react-bootstrap/Modal";
 import Spinner from "react-bootstrap/Spinner";
 import "../css/styles.css";
 import "../css/checkbox.css";
+import { useToast } from "@chakra-ui/react";
 
 import {
   MapContainer,
@@ -18,8 +18,7 @@ import "leaflet/dist/leaflet.css";
 const MapForm = () => {
   const [latLong, setLatLong] = useState([45.508, -73.561]);
   const [geoFound, setGeoFound] = useState();
-  const [showModalError, setShowModalError] = useState(false);
-  const [pickerValue, setPickerValue] = useState({radius: 0.5});
+  const [pickerValue, setPickerValue] = useState({ radius: 0.5 });
   const [settings, setSettings] = useState({
     CommunautoEmail: "",
     CommunautoPassword: "",
@@ -27,6 +26,17 @@ const MapForm = () => {
     DefaultDistance: 0.5,
     DefaultEthicalMode: true,
   });
+
+  const toast = useToast();
+  function showToast(title, description, status) {
+    toast({
+      title: title,
+      description: description,
+      status: status,
+      duration: 2000,
+      isClosable: true,
+    });
+  }
 
   const selections = {
     radius: Array(51)
@@ -89,16 +99,24 @@ const MapForm = () => {
             body: JSON.stringify(payload),
           })
             .then((response) => {
-              if (!response.ok) {
-                setShowModalError(true);
-              }
+              showToast(
+                "Request sent",
+                "You will receive a confirmation notification shortly",
+                "success"
+              );
             })
             .catch(() => {
-              setShowModalError(true);
+              showToast(
+                "Dammit !!",
+                "Something seems to have gone wrong on our side",
+                "error"
+              );
             });
         } else {
-          alert(
-            "User is not subscribed to push notification, make sure you go to the settings and enable before using."
+          showToast(
+            "To soon junior",
+            "You are not subscribed to push notifications, make sure you go to the settings and before using this app.",
+            "error"
           );
           throw new Error("User is not subscribed to push notification");
         }
@@ -188,26 +206,6 @@ const MapForm = () => {
         >
           Send request
         </button>
-
-        <Modal
-          data-bs-theme="dark"
-          show={showModalError}
-          onHide={() => setShowModalError(false)}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Fuck !!</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div className="main-container">
-              Something went wrong on our side !
-            </div>
-          </Modal.Body>
-          <Modal.Footer>
-            <button className="button" onClick={() => setShowModalError(false)}>
-              Close
-            </button>
-          </Modal.Footer>
-        </Modal>
       </div>
     </div>
   );

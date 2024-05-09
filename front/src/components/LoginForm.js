@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
-import EnablePush from "../components/EnablePush";
+import EnablePush from "./EnablePush";
+import { useToast } from "@chakra-ui/react";
 
 function MainForm() {
   const [settings, setSettings] = useState({
@@ -12,7 +12,6 @@ function MainForm() {
     DefaultEthicalMode: true,
   });
 
-  const [showModal, setShowModal] = useState(false);
 
   function handleFormChange(e) {
     const { name, value, type, checked } = e.target;
@@ -27,6 +26,17 @@ function MainForm() {
         [name]: value,
       }));
     }
+  }
+
+  const toast = useToast();
+  function showToast(title, description) {
+    toast({
+      title: title,
+      description: description,
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
   }
 
   function getBrowserData() {
@@ -50,11 +60,8 @@ function MainForm() {
     <div>
       <Form data-bs-theme="dark">
         <br />
-
         <br />
-
         <h3>Login info</h3>
-
         <Form.Group className="mb-3" controlId="CommunautoEmail">
           <Form.Label>Communauto ID</Form.Label>
           <Form.Control
@@ -65,7 +72,6 @@ function MainForm() {
             onChange={(e) => handleFormChange(e)}
           />
         </Form.Group>
-
         <Form.Group className="mb-3" controlId="CommunautoPassword">
           <Form.Label>Communauto Password</Form.Label>
           <Form.Control
@@ -76,25 +82,20 @@ function MainForm() {
             onChange={(e) => handleFormChange(e)}
           />
         </Form.Group>
-
         <button
           className="button"
           onClick={(e) => {
             e.preventDefault();
             setBrowserData();
-            setShowModal(true);
+            showToast("Saved", "Settings saved");
           }}
         >
           Save
         </button>
-        <br />
-        <br />
-
-        <h3>Notifications</h3> 
+        <br /> <br />
+        <h3>Notifications</h3>
         <EnablePush />
-        <br />
-        <br />
-
+        <br /> <br />
         <h3>Default settings</h3>
         <h6>(coming soon)</h6>
         <Form.Group className="mb-3" controlId="selectCity">
@@ -110,7 +111,6 @@ function MainForm() {
             <option value="toronto">Toronto</option>
           </Form.Select>
         </Form.Group>
-
         <Form.Group className="mb-3" controlId="DefaultDistance">
           <Form.Label>Default Distance</Form.Label>
           <Form.Control
@@ -125,7 +125,6 @@ function MainForm() {
             disabled={true}
           />
         </Form.Group>
-
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <Form.Check
             type="checkbox"
@@ -138,21 +137,6 @@ function MainForm() {
         </Form.Group>
       </Form>
       <br />
-      <Modal
-        data-bs-theme="dark"
-        show={showModal}
-        onHide={() => setShowModal(false)}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Settings saved</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, your settings are saved!</Modal.Body>
-        <Modal.Footer>
-          <button className="button" onClick={() => setShowModal(false)}>
-            Close
-          </button>
-        </Modal.Footer>
-      </Modal>
     </div>
   );
 }
