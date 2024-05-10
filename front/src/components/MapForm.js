@@ -28,12 +28,12 @@ const MapForm = () => {
   });
 
   const toast = useToast();
-  function showToast(title, description, status) {
+  function showToast(title, description, status, duration) {
     toast({
       title: title,
       description: description,
       status: status,
-      duration: 2000,
+      duration: duration,
       isClosable: true,
     });
   }
@@ -102,21 +102,21 @@ const MapForm = () => {
               showToast(
                 "Request sent",
                 "You will receive a confirmation notification shortly",
-                "success"
+                "success", 2000
               );
             })
             .catch(() => {
               showToast(
                 "Dammit !!",
                 "Something seems to have gone wrong on our side",
-                "error"
+                "error", 2000
               );
             });
         } else {
           showToast(
             "To soon junior",
-            "You are not subscribed to push notifications, make sure you go to the settings and before using this app.",
-            "error"
+            "You are not subscribed to push notifications, make sure you go to the settings before using this app.",
+            "error", 10000
           );
           throw new Error("User is not subscribed to push notification");
         }
