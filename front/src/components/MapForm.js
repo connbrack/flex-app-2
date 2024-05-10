@@ -102,21 +102,24 @@ const MapForm = () => {
               showToast(
                 "Request sent",
                 "You will receive a confirmation notification shortly",
-                "success", 2000
+                "success",
+                2000
               );
             })
             .catch(() => {
               showToast(
                 "Dammit !!",
                 "Something seems to have gone wrong on our side",
-                "error", 2000
+                "error",
+                2000
               );
             });
         } else {
           showToast(
             "To soon junior",
             "You are not subscribed to push notifications, make sure you go to the settings before using this app.",
-            "error", 10000
+            "error",
+            10000
           );
           throw new Error("User is not subscribed to push notification");
         }
@@ -162,7 +165,7 @@ const MapForm = () => {
         )}
       </div>
 
-      <div>
+      <div style={{ overscrollBehavior: "none" }}>
         <Picker height={170} value={pickerValue} onChange={setPickerValue}>
           {Object.keys(selections).map((name) => (
             <Picker.Column key={name} name={name}>
