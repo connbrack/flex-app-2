@@ -100,6 +100,6 @@ self.addEventListener("activate", async (e) => {
 self.addEventListener("push", (e) => {
   self.registration.showNotification("Flex 2 !!", {
     body: e.data.text(),
-    icon: "../public/icons.png",
+    icon: "/maskable.png",
   });
 });
