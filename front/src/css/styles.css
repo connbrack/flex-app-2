@@ -1,3 +1,8 @@
+body {
+    overscroll-behavior-y: contain;
+}
+
+
 .main {
   background-color: black;
   font-family: "Courier New", monospace;
@@ -61,7 +66,7 @@ button[disabled]{
 .button-alt {
   display: block;
   color: white;
-  width: 100%;
+  
   border: none;
   background-color: #F15B2C;
   margin-top: 20px;

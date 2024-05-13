@@ -164,8 +164,7 @@ const MapForm = () => {
           </div>
         )}
       </div>
-
-      <div style={{ overscrollBehavior: "none" }}>
+      <div>
         <Picker height={170} value={pickerValue} onChange={setPickerValue}>
           {Object.keys(selections).map((name) => (
             <Picker.Column key={name} name={name}>
