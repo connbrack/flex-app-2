@@ -13,17 +13,7 @@ root.render(
   </React.StrictMode>
 );
 
-serviceWorkerRegistration.register({
-  onUpdate: (e) => {
-    const { waiting: { postMessage = null } = {} , update } = e || {};
-    if (postMessage) {
-      postMessage({ type: 'SKIP_WAITING' });
-    }
-    update().then(() => {
-      window.location.reload();
-    });
-  },
-});
+serviceWorkerRegistration.register();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
