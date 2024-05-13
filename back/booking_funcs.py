@@ -15,7 +15,7 @@ def notify_close_cars(loc, max_dis, push_subscription, book_car_enable, communau
         max_dis = float(max_dis)
 
         if book_car_enable:
-            send_notification('Car search has started - The flex-app has begun searching for your car, you will be notified when a car is booked', push_subscription)
+            send_notification('Car search has started !! You will be notified when a car is booked', push_subscription)
         else:
             send_notification('Car search has started - The flex-app has begun searching for your car, you will be notified when a car is close', push_subscription)
 
@@ -67,20 +67,20 @@ def notify_close_cars(loc, max_dis, push_subscription, book_car_enable, communau
                         if car not in ignore_list:
                             booking_result, booking_message = book_car(int(car), customer_ID, session_ID)
                             if booking_result:
-                                message = f'''A car was booked sucessfully'''
-                                send_notification(f'Car booked - {message}', push_subscription)
+                                message = f'''A car was booked sucessfully !!'''
+                                send_notification(f'{message}', push_subscription)
                                 return
                             elif booking_message == 'The booking limit on this vehicle has been reached.':
-                                message = f'A booking was attempted but failed for the reason below. The search has is continuing.\n\n{booking_message}'
-                                send_notification(f'Unsucessful booking - {message}', push_subscription) 
+                                message = f'A booking was attempted but the booking limit on that vehicle had been reached !! The search is continuing.'
+                                send_notification(f'Unsuccessful booking - {message}', push_subscription) 
                                 ignore_list.append(car)
                                 time.sleep(.25)
                             elif booking_message == 'The vehicle is unavailable.':
-                                message = f'A booking was attempted but failed for the reason below. The search is continuing.\n\n{booking_message}'
-                                send_notification(f'Unsucessful booking - {message}', push_subscription) 
+                                message = f'A booking was attempted but be were not fast enough so the car was not successfully booked!! The search is continuing.'
+                                send_notification(f'Unsuccessful booking - {message}', push_subscription) 
                             else:
-                                message = f'A booking was attempted but failed for the reason below. The search has stopped.\n\n{booking_message}'
-                                send_notification(f'search stopped - {message}', push_subscription) 
+                                message = f'A booking was attempted but failed for the reason below.\n\n{booking_message}'
+                                send_notification(f'Search stopped - {message}', push_subscription) 
                                 return
 
         send_notification('Car not found - Max time has been reached and no car was found', push_subscription)
