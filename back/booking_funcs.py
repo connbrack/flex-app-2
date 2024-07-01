@@ -10,7 +10,6 @@ import json
 
 def notify_close_cars(loc, max_dis, push_subscription, book_car_enable, communauto_cred, ethical_mode, sleep_time=5, max_time=1800):
     try:
-        print(book_car_enable)
 
         max_dis = float(max_dis)
 
