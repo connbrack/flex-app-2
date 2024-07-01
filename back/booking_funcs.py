@@ -10,7 +10,7 @@ import json
 
 def notify_close_cars(loc, max_dis, push_subscription, book_car_enable, communauto_cred, ethical_mode, sleep_time=5, max_time=1800):
     try:
-        book_car_enable = True if book_car_enable is not None else False
+        print(book_car_enable)
 
         max_dis = float(max_dis)
 
@@ -49,16 +49,12 @@ def notify_close_cars(loc, max_dis, push_subscription, book_car_enable, communau
             if (num_cars > 0):
                 if book_car_enable == False:
                     if num_cars > 0:
-                        if book_car_enable:
-                            message = f'''A car was booked sucessfully'''
-                            send_notification(f'Car booked  - {message}', push_subscription)
-                        else:
-                            if num_cars==1:
-                                message = f'There is 1 car that is {max_dis} km away'
-                                send_notification(f'Car found  - {message}', push_subscription)
-                            elif num_cars>1:
-                                message = f'There are {num_cars} cars that are {max_dis} km away'
-                                send_notification(f'Car found  - {message}', push_subscription)
+                        if num_cars==1:
+                            message = f'There is 1 car that is {max_dis} km away'
+                            send_notification(f'Car found  - {message}', push_subscription)
+                        elif num_cars>1:
+                            message = f'There are {num_cars} cars that are {max_dis} km away'
+                            send_notification(f'Car found  - {message}', push_subscription)
                         return
                 else:
                     if ethical_mode:

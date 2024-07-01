@@ -209,8 +209,13 @@ const MapForm = () => {
           Send request
         </button>
       </div>
+
+        <div className="Warning">
+         !! Unfortunately, communauto has implemented anti-bot measures :(. for now, this app will only send notifications when a car is free !!
+        </div>
     </div>
   );
 };
 
 export default MapForm;
+

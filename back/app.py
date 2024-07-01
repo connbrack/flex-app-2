@@ -26,7 +26,7 @@ def main_function():
     ethical = data['ethicalMode']
     push_key = data['pushSubscription']
 
-    autobook = True
+    autobook = False
 
     p = Process(target=notify_close_cars, args=(loc, max_dis, push_key,autobook,login_cred, ethical,), name=f'{push_key}{random.randint(10000, 99999)}')
     p.start()
